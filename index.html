@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey-to-Donate Platform</title>
+    <!-- Load jQuery (Required by Pollfish) -->
+    <script src="https://jquery.com"></script>
+    <style>
+        body { font-family: -apple-system, sans-serif; line-height: 1.6; max-width: 600px; margin: 40px auto; padding: 0 20px; color: #333; }
+        h1 { color: #111; }
+        .instructions { background: #f4f4f4; padding: 15px; border-radius: 8px; margin: 20px 0; }
+        footer { margin-top: 50px; font-size: 0.8em; color: #666; border-top: 1px solid #ddd; padding-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <h1>💸 Support Your Friends with Your Opinion, Not Your Cash.</h1>
+    <p>Welcome to the Survey-to-Donate testing platform. Someone you know invited you here to help them raise money for a personal cause.</p>
+
+    <div class="instructions">
+        <h3>📋 How to Ensure They Get Paid:</h3>
+        <ul>
+            <li><strong>Answer Honestly:</strong> Brand verification engines block random clicking.</li>
+            <li><strong>Finish the Survey:</strong> Complete the session until you reach the final confirmation screen.</li>
+        </ul>
+    </div>
+
+    <!-- Pollfish Widget Container -->
+    <div id="pollfish-container"></div>
+
+    <footer>
+        <p><strong>Transparency & Privacy Notice:</strong> 80% of generated revenue goes to the creator; 20% funds our upcoming mobile app development. By continuing, you agree that your anonymous demographic survey data will be processed by our partner, Pollfish, under the Pollfish Respondent Privacy Policy.</p>
+    </footer>
+
+    <script>
+      // Automatically grab the creator ID from the URL (?id=sarah123)
+      const urlParams = new URLSearchParams(window.location.search);
+      const creatorId = urlParams.get('id') || 'untracked_visitor';
+
+      // Configure Pollfish Web Plugin
+      var pollfishConfig = {
+        api_key: "YOUR_POLLFISH_PUBLISHER_API_KEY_HERE", // <-- Put your real API key here
+        debug: true,                                    // <-- Change to false when Pollfish approves you
+        request_uuid: creatorId,
+        container: "pollfish-container"
+      };
+    </script>
+    <!-- Load Pollfish Web Platform Asset -->
+    <script src="https://googleapis.com"></script>
+
+</body>
+</html>
