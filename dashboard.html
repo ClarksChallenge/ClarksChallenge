@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>fundup – Creator Dashboard</title>
+  <title>8Impact – Creator Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
@@ -10,13 +10,19 @@
       background: #0f172a;
       color: #e5e7eb;
       margin: 0;
-      padding: 0 0 70px; /* space for bottom nav */
+      padding: 0 0 70px;
     }
 
     .wrap {
       max-width: 720px;
       margin: 0 auto;
       padding: 20px;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     h1 {
@@ -73,7 +79,7 @@
     <div style="display:flex; align-items:center; gap:12px;">
       <img src="https://raw.githubusercontent.com/ClarksChallenge/ClarksChallenge/main/octopus.png"
            style="width:48px; height:48px; object-fit:contain;" />
-      <span style="color:#e2e8f0; font-size:1.1rem; font-weight:600;">fundup</span>
+      <span style="color:#e2e8f0; font-size:1.1rem; font-weight:600;">8Impact</span>
     </div>
   </header>
 
