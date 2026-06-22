@@ -7,47 +7,72 @@
   <style>
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f9fafb;
-      color: #111827;
-      padding: 24px;
+      background: #0f172a;
+      color: #e5e7eb;
+      margin: 0;
+      padding: 0 0 70px; /* space for bottom nav */
     }
+
     .wrap {
       max-width: 720px;
       margin: 0 auto;
-      background: #ffffff;
-      border-radius: 16px;
-      padding: 20px 20px 18px;
-      box-shadow: 0 10px 30px rgba(15,23,42,0.08);
+      padding: 20px;
     }
+
     h1 {
       font-size: 1.6rem;
       margin-bottom: 8px;
     }
+
     h2 {
       font-size: 1.1rem;
-      margin-top: 16px;
+      margin-top: 20px;
       margin-bottom: 6px;
+      color: #f1f5f9;
     }
+
     p, li {
       font-size: 0.95rem;
       line-height: 1.5;
-      color: #374151;
+      color: #cbd5e1;
     }
+
     ul {
-      padding-left: 18px;
-      margin-bottom: 8px;
+      padding-left: 20px;
+      margin-bottom: 12px;
     }
   </style>
 </head>
 <body>
+
+  <!-- ⭐ TOP HEADER -->
+  <header style="
+    width:100%;
+    background:#0f172a;
+    border-bottom:1px solid #1e293b;
+    padding:12px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;
+    top:0;
+    z-index:1000;
+  ">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <img src="https://raw.githubusercontent.com/ClarksChallenge/ClarksChallenge/main/octopus.png"
+           style="width:48px; height:48px; object-fit:contain;" />
+      <span style="color:#e2e8f0; font-size:1.1rem; font-weight:600;">fundup</span>
+    </div>
+  </header>
+
   <div class="wrap">
     <h1>Privacy Policy</h1>
     <p><em>Last updated: TODAY</em></p>
 
     <h2>1. Who we are</h2>
     <p>
-      fundup is a simple fundraising tool that allows supporters to complete surveys to generate money for creators.  
-      We are designed to operate with minimal data and maximum privacy.
+      fundup is a simple fundraising tool that allows supporters to complete surveys to generate money for creators.
+      The platform is designed to operate with minimal data and maximum privacy.
     </p>
 
     <h2>2. What we do <strong>not</strong> collect</h2>
@@ -58,7 +83,7 @@
       <li>Phone numbers</li>
       <li>Passwords or accounts</li>
       <li>Payment card details</li>
-      <li>Demographic information (age, gender, etc.)</li>
+      <li>Demographic information</li>
       <li>Location data</li>
       <li>Device identifiers</li>
     </ul>
@@ -66,47 +91,60 @@
     <h2>3. Anonymous creator IDs</h2>
     <p>
       When you visit a creator’s page, the URL includes an anonymous creator ID  
-      (for example: <code>?id=CREATOR_ABC</code>).  
-      This ID is used only to route survey earnings to the correct creator.  
-      It does not identify a person.
+      (example: <code>?id=CREATOR_ABC</code>).  
+      This ID is used only to route survey earnings to the correct creator.
     </p>
 
     <h2>4. Surveys and third‑party providers</h2>
     <p>
-      Surveys on fundup are provided by CPX Research, a third‑party survey provider.  
+      Surveys on fundup are provided by CPX Research.  
       When you interact with surveys, you are interacting directly with CPX Research,  
-      which may collect limited information needed to run surveys and prevent fraud.
-    </p>
-    <p>
-      CPX Research is responsible for its own data practices and complies with privacy regulations such as GDPR and CCPA.
+      which may collect limited information needed to operate surveys and prevent fraud.
     </p>
 
     <h2>5. Cookies and tracking</h2>
     <p>
       fundup itself does not set cookies or use tracking pixels.  
-      CPX Research may use cookies or similar technologies within their survey iframe  
-      to operate their service and prevent abuse.
+      CPX Research may use cookies inside their survey iframe.
     </p>
 
     <h2>6. Payouts to creators</h2>
     <p>
-      Payouts to creators are tracked using anonymous creator IDs and payout amounts.  
-      We do not publish or store personal payment details on this site.
+      Payouts are tracked using anonymous creator IDs and payout amounts.  
+      No personal payment details are stored on this site.
     </p>
 
     <h2>7. Data security</h2>
     <p>
-      Because we intentionally avoid collecting personal data,  
-      the risk of data exposure is significantly reduced.  
-      We still recommend that creators and supporters avoid sharing personal information  
-      in any free‑text fields or communications related to fundup.
+      Because fundup intentionally avoids collecting personal data,  
+      the risk of data exposure is significantly reduced.
     </p>
 
     <h2>8. Contact</h2>
     <p>
-      If you have questions about this privacy policy,  
-      you can contact the fundup maintainer via the project’s GitHub repository.
+      For questions about this privacy policy, contact the fundup maintainer via the GitHub repository.
     </p>
   </div>
+
+  <!-- ⭐ BOTTOM NAV -->
+  <nav style="
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    background:#0f172a;
+    border-top:1px solid #1e293b;
+    display:flex;
+    justify-content:space-around;
+    padding:10px 0;
+    z-index:1000;
+  ">
+    <a href="index.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Home</a>
+    <a href="creators.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Creators</a>
+    <a href="create.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Create</a>
+    <a href="dashboard.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Dashboard</a>
+    <a href="payouts.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Payouts</a>
+  </nav>
+
 </body>
 </html>
