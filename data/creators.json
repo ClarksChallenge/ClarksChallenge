@@ -1,0 +1,14 @@
+[
+  {
+    "id": "CREATOR_ABC",
+    "name": "Alex",
+    "goal": "New camera for content",
+    "link": "index.html?id=CREATOR_ABC"
+  },
+  {
+    "id": "CREATOR_DEF",
+    "name": "Jordan",
+    "goal": "College tuition support",
+    "link": "index.html?id=CREATOR_DEF"
+  }
+]
