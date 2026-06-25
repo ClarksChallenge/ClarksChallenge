@@ -1,165 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>8Impact – Creator Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>Creator Dashboard</title>
   <style>
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #0f172a;
-      color: #e5e7eb;
-      margin: 0;
-      padding: 0 0 70px;
-    }
-
-    .wrap {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 20px;
-      animation: fadeIn 0.5s ease-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    h1 {
-      font-size: 1.6rem;
-      margin-bottom: 6px;
-    }
-
-    .subtitle {
-      color: #94a3b8;
-      font-size: 0.9rem;
-      margin-bottom: 20px;
-    }
-
-    .metrics {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 14px;
-    }
-
-    .metric {
-      background: #020617;
-      border-radius: 14px;
-      border: 1px solid #1f2937;
-      padding: 14px;
-    }
-
-    .metric-label {
-      font-size: 0.8rem;
-      color: #9ca3af;
-      margin-bottom: 4px;
-    }
-
-    .metric-value {
-      font-size: 1.2rem;
-      font-weight: 600;
-    }
+    body { font-family: Arial; padding: 20px; }
+    .stat { font-size: 22px; margin: 10px 0; }
   </style>
 </head>
 <body>
 
-  <!-- ⭐ TOP HEADER -->
-  <header style="
-    width:100%;
-    background:#0f172a;
-    border-bottom:1px solid #1e293b;
-    padding:12px 20px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    position:sticky;
-    top:0;
-    z-index:1000;
-  ">
-    <div style="display:flex; align-items:center; gap:12px;">
-      <img src="https://raw.githubusercontent.com/ClarksChallenge/ClarksChallenge/main/octopus.png"
-           style="width:48px; height:48px; object-fit:contain;" />
-      <span style="color:#e2e8f0; font-size:1.1rem; font-weight:600;">8Impact</span>
-    </div>
-  </header>
+<h2 id="creator-label">Loading...</h2>
 
-  <div class="wrap">
-    <h1>Creator Dashboard</h1>
-    <p class="subtitle" id="creator-label">Loading creator…</p>
+<div class="stat">Total Earned: <span id="earned">$0.00</span></div>
+<div class="stat">Total Paid Out: <span id="paid">$0.00</span></div>
+<div class="stat">Balance: <span id="balance">$0.00</span></div>
+<div class="stat">Surveys Completed: <span id="surveys">0</span></div>
 
-    <div class="metrics">
-      <div class="metric">
-        <div class="metric-label">Total earned (approx)</div>
-        <div class="metric-value" id="earned">$0.00</div>
-      </div>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const creatorId = (params.get("id") || "").trim();
 
-      <div class="metric">
-        <div class="metric-label">Total paid out</div>
-        <div class="metric-value" id="paid">$0.00</div>
-      </div>
+  document.getElementById("creator-label").textContent =
+    creatorId ? `Stats for creator ID: ${creatorId}` : "No creator ID provided.";
 
-      <div class="metric">
-        <div class="metric-label">Balance</div>
-        <div class="metric-value" id="balance">$0.00</div>
-      </div>
-
-      <div class="metric">
-        <div class="metric-label">Surveys completed</div>
-        <div class="metric-value" id="surveys">0</div>
-      </div>
-    </div>
-
-    <!-- ⭐ CPX-SAFE COMPLIANCE NOTICE -->
-    <p style="color:#94a3b8; font-size:0.75rem; margin-top:20px;">
-      Earnings shown are estimates based on completed CPX Research surveys.
-      8Impact is an independent publisher and is not affiliated with CPX Research.
-      Fraudulent activity may result in removal of earnings.
-    </p>
-  </div>
-
-  <!-- ⭐ BOTTOM NAV -->
-  <nav style="
-    position:fixed;
-    bottom:0;
-    left:0;
-    width:100%;
-    background:#0f172a;
-    border-top:1px solid #1e293b;
-    display:flex;
-    justify-content:space-around;
-    padding:10px 0;
-    z-index:1000;
-  ">
-    <a href="index.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Home</a>
-    <a href="creators.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Creators</a>
-    <a href="create.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Create</a>
-    <a href="dashboard.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Dashboard</a>
-    <a href="payouts.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Payouts</a>
-  </nav>
-
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const creatorId = (params.get("id") || "").trim();
-
-    document.getElementById("creator-label").textContent =
-      creatorId ? `Stats for creator ID: ${creatorId}` : "No creator ID provided.";
-
-    // ⭐ Load stats from backend
-    if (creatorId) {
-      fetch(`https://YOUR_SCRIPT_URL/creatorStats?id=${encodeURIComponent(creatorId)}`)
-        .then(r => r.json())
-        .then(data => {
-          document.getElementById("earned").textContent = `$${data.earned.toFixed(2)}`;
-          document.getElementById("paid").textContent = `$${data.paid.toFixed(2)}`;
-          document.getElementById("balance").textContent = `$${data.balance.toFixed(2)}`;
-          document.getElementById("surveys").textContent = data.surveys;
-        })
-        .catch(() => {
-          document.getElementById("creator-label").textContent =
-            "Unable to load creator stats.";
-        });
-    }
-  </script>
+  if (creatorId) {
+    fetch(`https://script.google.com/macros/s/AKfycbziaO7Zj2BnhtlnI3j7dAPoKKz-SNowp91_vj7ww_4hffbALzCwVHExlqlvLAdRepPWbw/exec?action=creatorStats&id=${encodeURIComponent(creatorId)}`)
+      .then(r => r.json())
+      .then(data => {
+        document.getElementById("earned").textContent = `$${data.earned.toFixed(2)}`;
+        document.getElementById("paid").textContent = `$${data.paid.toFixed(2)}`;
+        document.getElementById("balance").textContent = `$${data.balance.toFixed(2)}`;
+        document.getElementById("surveys").textContent = data.surveys;
+      })
+      .catch(() => {
+        document.getElementById("creator-label").textContent =
+          "Unable to load creator stats.";
+      });
+  }
+</script>
 
 </body>
 </html>
