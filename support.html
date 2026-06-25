@@ -33,17 +33,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .profile-title {
-      font-size: 1.4rem;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .profile-goal {
-      color: #94a3b8;
-      margin-bottom: 12px;
-    }
-
     iframe {
       width: 100%;
       height: 600px;
@@ -101,10 +90,14 @@
     </div>
 
     <!-- ⭐ CPX Survey Iframe -->
-    <iframe
-      src="https://offers.cpx-research.com/index.php?app_id=YOUR_APP_ID&ext_user_id=CREATOR_ID"
-      id="survey-frame">
-    </iframe>
+    <iframe id="survey-frame"></iframe>
+
+    <!-- ⭐ CPX-SAFE DISCLAIMER -->
+    <p style="color:#94a3b8; font-size:0.75rem; margin-top:14px;">
+      This survey experience is provided by CPX Research.  
+      8Impact is an independent publisher and is not affiliated with CPX Research.  
+      Earnings are based solely on completed surveys. Fraudulent activity may result in removal of earnings.
+    </p>
 
     <!-- ⭐ Random Creator Button -->
     <button class="random-btn" id="random-btn">Support a Random Creator</button>
@@ -132,9 +125,8 @@
   </nav>
 
   <script>
-    // Load creator ID from URL
     const params = new URLSearchParams(window.location.search);
-    const creatorId = params.get("id");
+    const creatorId = (params.get("id") || "").trim();
 
     // Load creators.json
     fetch("data/creators.json")
@@ -151,9 +143,12 @@
         }
       });
 
-    // Update CPX iframe
+    // Build CPX iframe URL safely
     const iframe = document.getElementById("survey-frame");
-    iframe.src = iframe.src.replace("CREATOR_ID", creatorId || "UNKNOWN");
+    const appId = "YOUR_REAL_APP_ID"; // Replace with your real CPX app_id
+
+    const safeId = encodeURIComponent(creatorId || "UNKNOWN");
+    iframe.src = `https://offers.cpx-research.com/index.php?app_id=${appId}&ext_user_id=${safeId}`;
 
     // Random creator button
     document.getElementById("random-btn").addEventListener("click", () => {
