@@ -1,165 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>8Impact – Support a Creator</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>Support a Creator</title>
   <style>
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #0f172a;
-      color: #e5e7eb;
-      margin: 0;
-      padding: 0 0 70px;
-    }
-
-    .wrap {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    .profile-card {
-      background: #020617;
-      border: 1px solid #1f2937;
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 20px;
-      animation: fadeIn 0.5s ease-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    iframe {
-      width: 100%;
-      height: 600px;
-      border: none;
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .random-btn {
-      margin-top: 16px;
-      padding: 12px 18px;
-      border-radius: 999px;
-      border: none;
-      background: #4f46e5;
-      color: white;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 1rem;
-      width: 100%;
-    }
-
-    .random-btn:hover {
-      background: #4338ca;
-    }
+    body { font-family: Arial; padding: 20px; }
   </style>
 </head>
 <body>
 
-  <!-- ⭐ TOP HEADER -->
-  <header style="
-    width:100%;
-    background:#0f172a;
-    border-bottom:1px solid #1e293b;
-    padding:12px 20px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    position:sticky;
-    top:0;
-    z-index:1000;
-  ">
-    <div style="display:flex; align-items:center; gap:12px;">
-      <img src="https://raw.githubusercontent.com/ClarksChallenge/ClarksChallenge/main/octopus.png"
-           style="width:48px; height:48px; object-fit:contain;" />
-      <span style="color:#e2e8f0; font-size:1.1rem; font-weight:600;">8Impact</span>
-    </div>
-  </header>
+<h2>Support a Creator</h2>
 
-  <div class="wrap">
+<p>When a survey completes, earnings will be recorded automatically.</p>
 
-    <!-- ⭐ Creator Profile Card -->
-    <div class="profile-card" id="profile-card">
-      <div class="profile-title" id="creator-name">Loading creator…</div>
-      <div class="profile-goal" id="creator-goal"></div>
-    </div>
-
-    <!-- ⭐ CPX Survey Iframe -->
-    <iframe id="survey-frame"></iframe>
-
-    <!-- ⭐ CPX-SAFE DISCLAIMER -->
-    <p style="color:#94a3b8; font-size:0.75rem; margin-top:14px;">
-      This survey experience is provided by CPX Research.  
-      8Impact is an independent publisher and is not affiliated with CPX Research.  
-      Earnings are based solely on completed surveys. Fraudulent activity may result in removal of earnings.
-    </p>
-
-    <!-- ⭐ Random Creator Button -->
-    <button class="random-btn" id="random-btn">Support a Random Creator</button>
-
-  </div>
-
-  <!-- ⭐ BOTTOM NAV -->
-  <nav style="
-    position:fixed;
-    bottom:0;
-    left:0;
-    width:100%;
-    background:#0f172a;
-    border-top:1px solid #1e293b;
-    display:flex;
-    justify-content:space-around;
-    padding:10px 0;
-    z-index:1000;
-  ">
-    <a href="index.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Home</a>
-    <a href="creators.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Creators</a>
-    <a href="create.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Create</a>
-    <a href="dashboard.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Dashboard</a>
-    <a href="payouts.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Payouts</a>
-  </nav>
-
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const creatorId = (params.get("id") || "").trim();
-
-    // Load creators.json
-    fetch("data/creators.json")
-      .then(r => r.json())
-      .then(creators => {
-        const creator = creators.find(c => c.id === creatorId);
-
-        if (creator) {
-          document.getElementById("creator-name").textContent = creator.name;
-          document.getElementById("creator-goal").textContent = creator.goal;
-        } else {
-          document.getElementById("creator-name").textContent = "Unknown Creator";
-          document.getElementById("creator-goal").textContent = "This creator is not listed publicly.";
-        }
-      });
-
-    // Build CPX iframe URL safely
-    const iframe = document.getElementById("survey-frame");
-    const appId = "YOUR_REAL_APP_ID"; // Replace with your real CPX app_id
-
-    const safeId = encodeURIComponent(creatorId || "UNKNOWN");
-    iframe.src = `https://offers.cpx-research.com/index.php?app_id=${appId}&ext_user_id=${safeId}`;
-
-    // Random creator button
-    document.getElementById("random-btn").addEventListener("click", () => {
-      fetch("data/creators.json")
-        .then(r => r.json())
-        .then(creators => {
-          const random = creators[Math.floor(Math.random() * creators.length)];
-          window.location.href = `support.html?id=${random.id}`;
-        });
-    });
-  </script>
+<script>
+function recordEarning(creatorId, amount) {
+  fetch("https://script.google.com/macros/s/AKfycbziaO7Zj2BnhtlnI3j7dAPoKKz-SNowp91_vj7ww_4hffbALzCwVHExlqlvLAdRepPWbw/exec?action=recordEarning", {
+    method: "POST",
+    body: new URLSearchParams({
+      creatorId: creatorId,
+      amount: amount
+    })
+  })
+  .then(r => r.json())
+  .then(data => {
+    console.log("Earning recorded:", data);
+  });
+}
+</script>
 
 </body>
 </html>
