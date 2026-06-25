@@ -28,16 +28,9 @@ function submitPayout() {
 
   fetch("https://script.google.com/macros/s/AKfycbziaO7Zj2BnhtlnI3j7dAPoKKz-SNowp91_vj7ww_4hffbALzCwVHExlqlvLAdRepPWbw/exec?action=requestPayout", {
     method: "POST",
-    body: new URLSearchParams({
-      creatorId: creatorId,
-      amount: amount
-    })
+    body: new URLSearchParams({ creatorId, amount })
   })
-  .then(r => r.json())
-  .then(data => {
-    alert("Payout submitted!");
-    console.log("Payout requested:", data);
-  });
+  .then(() => alert("Payout submitted!"));
 }
 </script>
 
