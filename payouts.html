@@ -1,172 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>8Impact – Payout Transparency</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>Payout Request</title>
   <style>
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #0f172a;
-      color: #e5e7eb;
-      margin: 0;
-      padding: 0 0 70px;
-    }
-
-    .wrap {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 20px;
-      animation: fadeIn 0.5s ease-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    h1 {
-      font-size: 1.6rem;
-      margin-bottom: 8px;
-    }
-
-    h2 {
-      font-size: 1.2rem;
-      margin-top: 20px;
-      margin-bottom: 6px;
-      color: #f1f5f9;
-    }
-
-    p {
-      font-size: 0.95rem;
-      color: #cbd5e1;
-      line-height: 1.5;
-      margin-bottom: 14px;
-    }
-
-    .box {
-      background: #020617;
-      border: 1px solid #1f2937;
-      border-radius: 14px;
-      padding: 16px;
-      margin-top: 16px;
-    }
-
-    a {
-      color: #a5b4fc;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    ul {
-      padding-left: 20px;
-      margin-bottom: 12px;
-    }
-
-    li {
-      margin-bottom: 6px;
-    }
+    body { font-family: Arial; padding: 20px; }
+    input { padding: 8px; margin: 5px 0; width: 200px; }
+    button { padding: 10px 15px; }
   </style>
 </head>
 <body>
 
-  <!-- ⭐ TOP HEADER -->
-  <header style="
-    width:100%;
-    background:#0f172a;
-    border-bottom:1px solid #1e293b;
-    padding:12px 20px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    position:sticky;
-    top:0;
-    z-index:1000;
-  ">
-    <div style="display:flex; align-items:center; gap:12px;">
-      <img src="https://raw.githubusercontent.com/ClarksChallenge/ClarksChallenge/main/octopus.png"
-           style="width:48px; height:48px; object-fit:contain;" />
-      <span style="color:#e2e8f0; font-size:1.1rem; font-weight:600;">8Impact</span>
-    </div>
-  </header>
+<h2>Request a Payout</h2>
 
-  <div class="wrap">
-    <h1>Payout Transparency</h1>
+<label>Creator ID</label><br>
+<input id="creatorId" type="text"><br>
 
-    <p>
-      8Impact tracks creator payouts using anonymous creator IDs only.  
-      No names, emails, or personal information are ever stored.
-    </p>
+<label>Amount</label><br>
+<input id="amount" type="number" step="0.01"><br>
 
-    <p>
-      Every payout made to a creator is logged in a public, read‑only ledger  
-      so creators can verify their balances at any time.
-    </p>
+<button onclick="submitPayout()">Submit Payout</button>
 
-    <!-- ⭐ CPX-SAFE NOTICE -->
-    <p style="color:#94a3b8; font-size:0.75rem;">
-      Surveys are provided by CPX Research.  
-      8Impact is an independent publisher and not affiliated with CPX Research.
-    </p>
+<script>
+function submitPayout() {
+  const creatorId = document.getElementById("creatorId").value.trim();
+  const amount = document.getElementById("amount").value.trim();
 
-    <div class="box">
-      <p><strong>Your payout ledger:</strong></p>
-
-      <p>
-        <a href="YOUR_GOOGLE_SHEET_LINK" target="_blank">
-          View payout ledger (Google Sheets)
-        </a>
-      </p>
-
-      <p style="font-size:0.85rem; color:#94a3b8;">
-        Replace this link once your Google Sheet is published.
-      </p>
-    </div>
-
-    <h2>Payout Verification</h2>
-    <p>
-      To request a payout, creators must provide:
-    </p>
-
-    <ul>
-      <li>Their creator ID</li>
-      <li>Their payout passphrase</li>
-      <li>Their preferred payout method (PayPal, Cash App, etc.)</li>
-    </ul>
-
-    <p style="color:#f87171; font-weight:600;">
-      ⚠️ 8Impact cannot recover lost passphrases.  
-      If a creator loses their passphrase, their earnings cannot be claimed.
-    </p>
-
-    <p style="margin-top:20px;">
-      This system keeps payouts transparent while protecting everyone’s privacy.
-    </p>
-  </div>
-
-  <!-- ⭐ BOTTOM NAV -->
-  <nav style="
-    position:fixed;
-    bottom:0;
-    left:0;
-    width:100%;
-    background:#0f172a;
-    border-top:1px solid #1e293b;
-    display:flex;
-    justify-content:space-around;
-    padding:10px 0;
-    z-index:1000;
-  ">
-    <a href="index.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Home</a>
-    <a href="creators.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Creators</a>
-    <a href="create.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Create</a>
-    <a href="dashboard.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Dashboard</a>
-    <a href="payouts.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Payouts</a>
-  </nav>
+  fetch("https://script.google.com/macros/s/AKfycbziaO7Zj2BnhtlnI3j7dAPoKKz-SNowp91_vj7ww_4hffbALzCwVHExlqlvLAdRepPWbw/exec?action=requestPayout", {
+    method: "POST",
+    body: new URLSearchParams({
+      creatorId: creatorId,
+      amount: amount
+    })
+  })
+  .then(r => r.json())
+  .then(data => {
+    alert("Payout submitted!");
+    console.log("Payout requested:", data);
+  });
+}
+</script>
 
 </body>
 </html>
