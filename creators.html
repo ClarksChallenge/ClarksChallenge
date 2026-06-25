@@ -1,151 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>8Impact – Creators</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>Creators</title>
   <style>
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #0f172a;
-      color: #e5e7eb;
-      margin: 0;
-      padding: 0 0 70px;
-    }
-
-    .wrap {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    h1 {
-      font-size: 1.8rem;
-      margin-bottom: 8px;
-      text-align: center;
-    }
-
-    .subtitle {
-      color: #9ca3af;
-      font-size: 0.95rem;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 16px;
-      animation: fadeIn 0.5s ease-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .card {
-      background: #020617;
-      border-radius: 14px;
-      padding: 14px 14px 12px;
-      border: 1px solid #1f2937;
-    }
-
-    .name {
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .goal {
-      font-size: 0.9rem;
-      color: #9ca3af;
-      margin-bottom: 10px;
-    }
-
-    .link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.85rem;
-      color: #a5b4fc;
-      text-decoration: none;
-    }
-
-    .link:hover {
-      text-decoration: underline;
+    body { font-family: Arial; padding: 20px; }
+    .creator {
+      padding: 10px; background: #f0f0f0; margin: 10px 0;
+      border-radius: 6px;
     }
   </style>
 </head>
 <body>
 
-  <!-- ⭐ TOP HEADER -->
-  <header style="
-    width:100%;
-    background:#0f172a;
-    border-bottom:1px solid #1e293b;
-    padding:12px 20px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    position:sticky;
-    top:0;
-    z-index:1000;
-  ">
-    <div style="display:flex; align-items:center; gap:12px;">
-      <img src="https://raw.githubusercontent.com/ClarksChallenge/ClarksChallenge/main/octopus.png"
-           style="width:48px; height:48px; object-fit:contain;" />
-      <span style="color:#e2e8f0; font-size:1.1rem; font-weight:600;">8Impact</span>
-    </div>
-  </header>
+<h2>Creators</h2>
+<div id="list">Loading...</div>
 
-  <div class="wrap">
-    <h1>Creators on 8Impact</h1>
-    <p class="subtitle">Each link opens a supporter page where surveys fund that creator’s goal.</p>
+<script>
+fetch("creators.json")
+  .then(r => r.json())
+  .then(creators => {
+    const list = document.getElementById("list");
+    list.innerHTML = "";
 
-    <div class="grid" id="creator-grid"></div>
-  </div>
-
-  <!-- ⭐ BOTTOM NAV -->
-  <nav style="
-    position:fixed;
-    bottom:0;
-    left:0;
-    width:100%;
-    background:#0f172a;
-    border-top:1px solid #1e293b;
-    display:flex;
-    justify-content:space-around;
-    padding:10px 0;
-    z-index:1000;
-  ">
-    <a href="index.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Home</a>
-    <a href="creators.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Creators</a>
-    <a href="create.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Create</a>
-    <a href="dashboard.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Dashboard</a>
-    <a href="payouts.html" style="color:#cbd5e1; text-decoration:none; font-size:0.85rem;">Payouts</a>
-  </nav>
-
-  <script>
-    fetch("data/creators.json")
-      .then(r => r.json())
-      .then(creators => {
-        const grid = document.getElementById("creator-grid");
-        grid.innerHTML = creators.map(c => `
-          <div class="card">
-            <div class="name">${c.name}</div>
-            <div class="goal">${c.goal}</div>
-            <a class="link" href="support.html?id=${c.id}">
-              <span>Open supporter page</span>
-              <span>↗</span>
-            </a>
-          </div>
-        `).join("");
-      })
-      .catch(() => {
-        document.getElementById("creator-grid").innerHTML =
-          "<p>Unable to load creators right now.</p>";
-      });
-  </script>
+    creators.forEach(c => {
+      list.innerHTML += `
+        <div class="creator">
+          <strong>${c.name}</strong><br>
+          Goal: ${c.goal}<br>
+          <a href="${c.link}" target="_blank">Support</a>
+        </div>
+      `;
+    });
+  });
+</script>
 
 </body>
 </html>
